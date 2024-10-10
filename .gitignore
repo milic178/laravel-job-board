@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+/public/storage
+/.env
+/.idea
+/.vscode
+*.log
+*.tmp
+npm-debug.log
