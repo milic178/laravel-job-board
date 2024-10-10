@@ -23,7 +23,7 @@ services:
       - laravel
 
   mysql:
-    container_name: mysql_maria_db
+    container_name: job_board_mysql_maria_db
     image: mariadb:10.9
     restart: unless-stopped
     tty: true
