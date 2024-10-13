@@ -19,9 +19,9 @@
     <nav class="flex justify-between items-center py-4 border-b border-white/10">
 
         <div>
-        <a href="/">
-            <img src=" {{ \Illuminate\Support\Facades\Vite::asset('resources/images/logo.svg') }}" alt="">
-        </a>
+            <a href="/">
+                <img src=" {{ \Illuminate\Support\Facades\Vite::asset('resources/images/logo.svg') }}" alt="">
+            </a>
         </div>
 
         <div class="space-x-6 font-bold">
@@ -31,10 +31,19 @@
             <a href="#">Companies</a>
         </div>
 
-        <div>
-            <a href="">Post a Job </a>
-        </div>
 
+        @auth
+            <div>
+                <a href="/jobs/create">Post a Job </a>
+            </div>
+        @endauth
+
+        @guest
+            <div class="space-x-6 font-bold">
+                <a href="/register">Sign Up</a>
+                <a href="/login">Login</a>
+            </div>
+        @endguest
     </nav>
 
     <main class="mt-10 max-w-[986px] mx-auto">
