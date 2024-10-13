@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
+use App\Models\Tag;
 
 class JobController extends Controller
 {
@@ -13,7 +14,20 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $featuredJobs = Job::where('featured', true)->get();
+        $jobs = Job::orderBy('created_at', 'desc')->get();$jobs = Job::all();
+        $jobs = Job::all();
+
+        /*[$featuredJobs, $nonFeaturedJobs] = $jobs->partition(function ($job) {
+            return $job->featured;
+        });
+        */
+        return view('jobs.index',[
+            //'lastJobs' => $lastJobs,
+            'featuredJobs' => $featuredJobs,
+            'jobs' => $jobs,
+            'tags' => Tag::all()
+        ]);
     }
 
     /**

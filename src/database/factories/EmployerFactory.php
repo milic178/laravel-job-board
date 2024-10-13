@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employer>
@@ -17,10 +19,13 @@ class EmployerFactory extends Factory
      */
     public function definition(): array
     {
+        $companyName = fake()->company();
+
         return [
-            'name'=>fake()->name(),
+            'name'=> $companyName,
             'logo'=>fake()->imageUrl(),
             'user_id'=>User::factory(),
+            'slug' =>Str::slug($companyName),
         ];
     }
 }
