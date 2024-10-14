@@ -23,9 +23,9 @@ class EmployerFactory extends Factory
 
         return [
             'name'=> $companyName,
-            'logo'=>fake()->imageUrl(),
-            'user_id'=>User::factory(),
-            'slug' =>Str::slug($companyName),
+            'logo'=> 'http://picsum.photos/seed/'.rand(0,10000).'/90',
+            'user_id'=> User::factory(),
+            'slug' => Str::slug($companyName),
         ];
     }
 }

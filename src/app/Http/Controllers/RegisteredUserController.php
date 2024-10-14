@@ -37,13 +37,12 @@ class RegisteredUserController extends Controller
 
         $user = User::create($userAttributes);
 
-
         $logoPath = $request->logo->store('logos');
 
         $user->employer()->create([
             //as attribute assigned in view(register.blade.php)
             'name' => $employerAttributes['employer'],
-            'logo' => $logoPath
+            'logo' => $logoPath ?? null
         ]);
 
         Auth::login($user);

@@ -25,4 +25,10 @@ class Job extends Model
         $tag = Tag::firstOrCreate(['name' => $name]);
         $this->tags()->attach($tag);
     }
+
+    public function setDescriptionAttribute($value)
+    {
+        //todo stip html&js attributes
+        $this->attributes['description'] = strip_tags($value);
+    }
 }

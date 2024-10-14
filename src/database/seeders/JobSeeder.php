@@ -15,7 +15,7 @@ class JobSeeder extends Seeder
      */
     public function run(): void
     {
-        $tags = Tag::factory(3)->create();
+        $tags = Tag::factory(6)->create();
 
         Job::factory(20)->create(new Sequence(
             [
@@ -27,9 +27,9 @@ class JobSeeder extends Seeder
                 'schedule' => 'Part Time',
             ]
         ))->each(function ($job) use ($tags) {
-            // Attach 1 to 3 random tags to each job
+            // Attach 1 to 4 random tags to each job
             $job->tags()->attach(
-                $tags->random(rand(1, 3))->pluck('id')->toArray()
+                $tags->random(rand(1, 4))->pluck('id')->toArray()
             );
         });
     }
