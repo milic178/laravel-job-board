@@ -1,6 +1,6 @@
 <x-layout>
     @php
-        $title = 'Results';
+        $title = 'Results ';
 
         if(isset($searchString)){
             $title .= 'for: '.$searchString;
