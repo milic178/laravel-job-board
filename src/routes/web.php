@@ -8,8 +8,6 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/search', SearchController::class);
-
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -61,6 +59,9 @@ Route::controller(EmployerController::class)->group(function () {
         ->can('update', 'employer');
 });
 
-Route::get('/search', SearchController::class);
+////Route::get('/search', SearchController::class);
+Route::get('/searchAll', [SearchController::class, 'searchAll']);
+Route::get('/searchEmployer', [SearchController::class, 'searchEmployer']);
+
 //automatically pass name attribute
 Route::get('/tags/{tag:name}', TagController::class); // path by name tags/frontend

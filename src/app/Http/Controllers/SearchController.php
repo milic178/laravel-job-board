@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
-class   SearchController extends Controller
+class SearchController extends Controller
 {
-    public function __invoke(Request $request)
+    public function searchAll(Request $request)
     {
         $searchString = request('q');
         /*$jobs = Job::with(['employer','tags'])
@@ -26,10 +27,10 @@ class   SearchController extends Controller
         */
 
         $jobs = Job::with(['employer', 'tags'])
-            ->where('title', 'LIKE', '%' . $searchString . '%')
-            ->orWhere('description', 'LIKE', '%' . $searchString . '%')
+            ->where('title', 'LIKE', '% ' . $searchString . ' %')
+            ->orWhere('description', 'LIKE', '% ' . $searchString . ' %')
             ->orWhereHas('employer', function ($query) use ($searchString) {
-                $query->where('name', 'LIKE', '%' . $searchString . '%');
+                $query->where('name', 'LIKE', '% ' . $searchString . ' %');
             })
             ->orWhereHas('tags', function ($query) use ($searchString) {
                 $query->where('name', 'LIKE', '%' . $searchString . '%');
@@ -38,5 +39,16 @@ class   SearchController extends Controller
 
 
         return view('results', compact('jobs', 'searchString'));
+    }
+
+    public function searchEmployer(Request $request)
+    {
+        $searchString = request('q');
+        dd('searchEmployer query: ' . $searchString);
+/**
+        $employers = Employer::with(['employer', 'tags'])
+
+        return view('results', compact('jobs', 'searchString'));
+        **/
     }
 }
