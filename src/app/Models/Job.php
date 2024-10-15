@@ -31,4 +31,15 @@ class Job extends Model
         //todo stip html&js attributes
         $this->attributes['description'] = strip_tags($value);
     }
+
+    public function getTagNamesSeparatedByComma(){
+        $tags = $this->tags();
+
+        if(!isset($tags)){
+            return '';
+        }
+        $tagNames = $tags->pluck('name')->toArray();
+
+        return implode(', ', $tagNames);
+    }
 }

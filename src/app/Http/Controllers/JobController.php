@@ -100,18 +100,33 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Request $request, Job $job)
     {
         //validate request
-        request()->validate([
+        $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'salary' => ['required', 'min:5'],
+            'location' => ['required', 'min:4'],
+            'schedule' => 'required', Rule::in(['Part Time', 'Full Time']),
+            'url' => 'required', 'active_url',
+            'description' => 'nullable', 'max:1000',
+            'tags' => 'nullable',
         ]);
 
-        $job->update([
-            'title' => request('title'),
-            'salary' => request('salary'),
-        ]);
+        $attributes['featured'] = $request->has('featured') ? true : false;
+
+        $job->update(Arr::except($attributes, ['tags']));
+
+
+        if($attributes['tags'] ?? false) {
+            foreach (explode(',', $attributes['tags']) as $tag) {
+                $tag = ucfirst(str_replace(' ', '', $tag));
+
+                //todo consolidate that all tags are stored equally example frontend, front-end
+                $job->tag(str($tag));
+            }
+        }
+
         return redirect('/jobs/' . $job->id);
     }
 

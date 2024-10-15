@@ -10,7 +10,7 @@
     </a>
 
     <div class="flex justify-between items-center mt-auto">
-        <div>
+        <div class="flex flex-wrap gap-1"> <!-- Added flex-wrap and gap -->
             @foreach($job->tags as $tag)
                 <x-tag size="small" :$tag></x-tag>
             @endforeach

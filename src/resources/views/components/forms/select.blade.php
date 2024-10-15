@@ -1,4 +1,4 @@
-@props(['label', 'name'])
+@props(['label', 'name', 'value' => '']) {{-- Add value prop for selected option --}}
 @php
     $defaults = [
         'id' => $name,

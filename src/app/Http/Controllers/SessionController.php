@@ -39,7 +39,7 @@ class SessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('job.index');
+        return redirect()->route('job.index');
     }
 
     public function destroy()
