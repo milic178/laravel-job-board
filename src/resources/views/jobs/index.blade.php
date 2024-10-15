@@ -40,6 +40,9 @@
 
             </div>
         </section>
+        <div>
+            {{ $jobs->links() }}
+        </div>
     </div>
 
 </x-layout>

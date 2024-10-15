@@ -9,6 +9,12 @@ class Job extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'employer_id',
+        'featured',
+        'schedule',
+        // other fillable attributes
+    ];
 
     public function employer()
     {

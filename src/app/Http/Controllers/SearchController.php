@@ -35,8 +35,7 @@ class SearchController extends Controller
             ->orWhereHas('tags', function ($query) use ($searchString) {
                 $query->where('name', 'LIKE', '%' . $searchString . '%');
             })
-            ->get();
-
+            ->simplePaginate(10);;
 
         return view('results', compact('jobs', 'searchString'));
     }

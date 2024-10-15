@@ -26,7 +26,7 @@ class EmployerFactory extends Factory
             'logo'=> 'http://picsum.photos/seed/'.rand(0,10000).'/90',
             'user_id'=> User::factory(),
             'slug' => Str::slug($companyName),
-            'description' => $this->faker->text(range(100,490)),
+            'description' => fake()->paragraph(rand(3,10)),
         ];
     }
 }

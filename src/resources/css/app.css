@@ -9,3 +9,26 @@
 .employer-card-logo {
     width: 43px;
 }
+
+.custom-pagination .active-link {
+    background-color: #3490dc;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+}
+
+.custom-pagination .enabled-link {
+    color: #3490dc;
+    padding: 0.5rem 0.75rem;
+}
+
+.custom-pagination .disabled-link {
+    color: #cccccc;
+    padding: 0.5rem 0.75rem;
+}
+
+.custom-pagination {
+    margin-top: 2rem; /* Adjust as needed */
+}
+
+

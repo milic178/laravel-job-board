@@ -20,7 +20,7 @@ class JobFactory extends Factory
         return [
             'employer_id' => Employer::factory(),
             'title' => $this->faker->jobTitle(),
-            'description' => $this->faker->text(range(400,900)),
+            'description' => $this->faker->paragraph(rand(0,7)),
             'salary' => fake()->randomElement(["$50 000 USD", "$100 000 USD", "$200 000 USD", "$70 000 USD"]),
             'location' => fake()->randomElement(['Remote','On Site']),
             'schedule' => fake()->randomElement(['Part Time','Full Time']),

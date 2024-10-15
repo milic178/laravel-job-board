@@ -9,7 +9,10 @@ class TagController extends Controller
 {
     public function __invoke(Tag $tag)
     {
-        //Tag model is passed automatically(already found by name in router)
-        return view('results', ['jobs' => $tag->jobs->load(['employer', 'tags'])]);
+        // Paginate jobs related to the tag, with employer and tags eager loaded
+        $jobs = $tag->jobs()->with(['employer', 'tags'])->simplePaginate(10);
+
+        return view('results', ['jobs' => $jobs]);
     }
+
 }

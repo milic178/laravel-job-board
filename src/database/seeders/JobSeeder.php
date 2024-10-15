@@ -17,28 +17,35 @@ class JobSeeder extends Seeder
      */
     public function run(): void
     {
-        // Ensure tags are available
         $tags = Tag::all();
-
-        // Ensure employers are available
         $employers = Employer::all();
 
-        // Create jobs and associate them with random employers and tags
-        Job::factory(20)->create(new Sequence(
-            [
-                'featured' => false,
-                'schedule' => 'Full Time',
-                'employer_id' => $employers->random()->id,
-            ],
-            [
-                'featured' => true,
-                'schedule' => 'Part Time',
-                'employer_id' => $employers->random()->id,
-            ]
-        ))->each(function ($job) use ($tags) {
+        if ($tags->isEmpty() || $employers->isEmpty()) {
+            dd('No tags or employers available to create jobs.');
+        }
+
+        foreach (range(1, 9000) as $index) {
+            $featured = $index % 2 === 0; // Alternates featured jobs
+            $schedule = $featured ? 'Part Time' : 'Full Time';
+            $employerId = $employers->random()->id;
+
+            // var_dump("Creating job with: featured={$featured}, schedule={$schedule}, employer_id={$employerId}");
+
+            try {
+                $job = Job::factory()->create([
+                    'featured' => $featured,
+                    'schedule' => $schedule,
+                    'employer_id' => $employerId,
+                ]);
+            } catch (\Exception $e) {
+                var_dump('Job creation failed: ' . $e->getMessage());
+            }
+
             // Attach 1 to 4 random tags to each job
             $randomTags = $tags->random(rand(1, 4))->pluck('id')->toArray();
             $job->tags()->attach($randomTags);
-        });
+        }
     }
+
+
 }

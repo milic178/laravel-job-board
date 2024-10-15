@@ -12,4 +12,6 @@
             <x-job-card-wide :$job/>
         @endforeach
     </div>
+
+    {{ $jobs->links() }}
 </x-layout>

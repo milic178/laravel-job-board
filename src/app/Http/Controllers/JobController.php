@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
+use App\Models\Jobs;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -25,7 +26,8 @@ class JobController extends Controller
             ->take(6)
             ->get();
 
-        $jobs = Job::all();
+
+        $jobs = Job::with(['employer', 'tags'])->simplePaginate(10);
 
         /* $jobs = Job::orderBy('created_at', 'desc')->get();
          $jobs = Job::all();
