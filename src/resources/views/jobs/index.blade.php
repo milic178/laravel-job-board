@@ -22,9 +22,8 @@
         <!-- Tags -->
         <section>
             <x-section-heading>Tags</x-section-heading>
-            <div class="mt-6 space-x-1">
+            <div class="mt-6 flex flex-wrap gap-2">
                 @foreach($tags as $tag)
-                    <!--name and parameter are the same thus  use :$ -->
                     <x-tag :$tag></x-tag>
                 @endforeach
             </div>
