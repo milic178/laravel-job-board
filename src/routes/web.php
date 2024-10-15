@@ -46,7 +46,7 @@ Route::controller(JobController::class)->group(function () {
 });
 
 Route::controller(EmployerController::class)->group(function () {
-    Route::get('/employer', [JobController::class, 'index'])
+    Route::get('/employer', 'index')
         ->name('employer.index');
     Route::get('/employer/{employer}', 'show');
 

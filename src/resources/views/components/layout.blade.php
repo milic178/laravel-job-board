@@ -28,7 +28,7 @@
         <!-- Middle links (Jobs, Employers) -->
         <div class="space-x-6 font-bold hidden md:flex">
             <a href="/" class="hover:text-gray-400">Jobs</a>
-            <a href="#" class="hover:text-gray-400">Employers</a>
+            <a href="/employer" class="hover:text-gray-400">Employers</a>
         </div>
 
         <!-- When user is logged out -->
@@ -60,7 +60,7 @@
                         <a href="/account" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Account</a>
                         <hr class="border-gray-300">
                         <a href="/" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Jobs</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Employers</a>
+                        <a href="/employer" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Employers</a>
                         <hr class="border-gray-300">
                         <form method="POST" action="/logout" class="block">
                             @csrf
