@@ -30,7 +30,7 @@ class SearchController extends Controller
             ->where('title', 'LIKE', '% ' . $searchString . ' %')
             ->orWhere('description', 'LIKE', '% ' . $searchString . ' %')
             ->orWhereHas('employer', function ($query) use ($searchString) {
-                $query->where('name', 'LIKE', '% ' . $searchString . ' %');
+                $query->where('name', 'LIKE', '%' . $searchString . '%');
             })
             ->orWhereHas('tags', function ($query) use ($searchString) {
                 $query->where('name', 'LIKE', '%' . $searchString . '%');
@@ -43,11 +43,10 @@ class SearchController extends Controller
     public function searchEmployer(Request $request)
     {
         $searchString = request('q');
-        dd('searchEmployer query: ' . $searchString);
-/**
-        $employers = Employer::with(['employer', 'tags'])
 
-        return view('results', compact('jobs', 'searchString'));
-        **/
+        $employers = Employer::where('name', 'LIKE', '%' . $searchString . '%')
+            ->simplePaginate(10);
+
+        return view('employers.results', compact('employers'));
     }
 }

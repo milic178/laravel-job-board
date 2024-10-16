@@ -68,6 +68,7 @@ class JobController extends Controller
         ]);
 
         $attributes['featured'] = $request->has('featured') ? true : false;
+        $attributes['eid'] = uuid_create();
 
         $job = Auth::user()->employer->jobs()->create(
             Arr::except($attributes, ['tags']));

@@ -26,6 +26,7 @@ class JobFactory extends Factory
             'schedule' => fake()->randomElement(['Part Time','Full Time']),
             'url' => $this->faker->url(),
             'featured' => $this->faker->randomElement([true, false]),
+            'eid'=>$this->faker->uuid(),
         ];
     }
 }

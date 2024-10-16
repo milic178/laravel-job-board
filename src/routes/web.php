@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
@@ -11,15 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
-    Route::get('/login', [SessionController::class, 'create']);
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
 });
 
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
-//Jobs
-//Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth');
-//Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
 
 //possible to group routes in controller group (ex: JobsController)
 Route::controller(JobController::class)->group(function () {
@@ -65,3 +62,9 @@ Route::get('/searchEmployer', [SearchController::class, 'searchEmployer']);
 
 //automatically pass name attribute
 Route::get('/tags/{tag:name}', TagController::class); // path by name tags/frontend
+
+Route::get('/confirmEmail', [EmailController::class, 'confirmEmail'])->name('confirmEmail');
+
+
+//todo remove testEmail Route
+Route::get('/testEmail',[EmailController::class, 'testEmail']);

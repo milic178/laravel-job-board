@@ -34,7 +34,6 @@ class Job extends Model
 
     public function setDescriptionAttribute($value)
     {
-        //todo stip html&js attributes
         $this->attributes['description'] = strip_tags($value);
     }
 

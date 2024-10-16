@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class RegisteredUserController extends Controller
 {
@@ -35,6 +38,7 @@ class RegisteredUserController extends Controller
             'logo' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
         ]);
 
+        $userAttributes['eid'] = uuid_create();
         $user = User::create($userAttributes);
 
         $logoPath = $request->logo->store('logos');
@@ -46,8 +50,18 @@ class RegisteredUserController extends Controller
         ]);
 
         Auth::login($user);
+        $this->queueWelcomeMail($user);
 
         return redirect()->route('job.index');
+    }
 
+    public function queueWelcomeMail(User $user){
+
+        $confirmEmailUrl = URL::temporarySignedRoute(
+            'confirmEmail', now()->addWeeks(1), ['eid' => $user->eid]
+        );
+
+        error_log("\n confirmEmailUrli : ".$confirmEmailUrl."\n");
+        Mail::to($user->email)->queue(new WelcomeMail($user, $confirmEmailUrl));
     }
 }

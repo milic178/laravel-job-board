@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.employer-card {
+.employer-card-wide {
     @apply p-4 bg-white/10 rounded-lg border border-transparent hover:border-blue-800 transition-colors duration-300;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .custom-pagination {
-    margin-top: 2rem; /* Adjust as needed */
+    margin-top: 2rem;
 }
 
 
