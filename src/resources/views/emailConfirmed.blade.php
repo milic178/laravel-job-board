@@ -2,7 +2,7 @@
     <div class="flex items-start justify-center h-screen mt-20">
         <div class="bg-white text-black p-6 rounded-lg shadow-lg text-center">
             @if(isset($error))
-                <p class="text-lg font-semibold text-red-600">{{ $error }}</p>
+                <p class="text-lg font-semibold text-red-500 p-2 bg-red-100 rounded">{{ $error }}</p>
             @else
                 <p class="text-lg font-semibold">Thank you for confirming your email. You will be redirected to Login page in few seconds.</p>
             @endif
