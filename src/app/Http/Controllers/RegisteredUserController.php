@@ -47,7 +47,10 @@ class RegisteredUserController extends Controller
         ]);
 
         Auth::login($user);
-        EmailService::class->queueWelcomeMail($user);
+
+        $emailService = new EmailService();
+        $emailService->queueWelcomeMail($user);
+
         return redirect()->route('job.index');
     }
 }

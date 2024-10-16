@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\EmailConfirmationException;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -13,26 +14,20 @@ class EmailController extends Controller
 {
     public function confirmEmail(Request $request)
     {
-
-        // Check if the signature is valid
         if (!$request->hasValidSignature()) {
-            abort(403, 'Invalid or expired link.');
+            throw new EmailConfirmationException('Invalid or expired link. Please request a new confirmation link by logging in.', 410);
         }
 
-        // Retrieve the eid from the query parameters
         $eid = $request->query('eid');
 
-        // Find the user based on the EID
         $user = User::where('eid', $eid)->first();
 
-        // Check if the user exists
         if (!$user) {
-            abort(404, 'User not found');
+            throw new EmailConfirmationException('Invalid or expired link. Please request a new confirmation link by logging in.', 410);
         }
 
-        // Check if the user has already verified their email
         if ($user->email_verified_at) {
-            return response()->json(['message' => 'Email is already verified.'], 409);
+            throw new EmailConfirmationException('Your email has already been confirmed.', 409);
         }
 
         $user->email_verified_at = now();
@@ -42,7 +37,8 @@ class EmailController extends Controller
     }
 
     //todo remove test function
-    public function testEmail(Request $request){
+    public function testEmail(Request $request)
+    {
 
     }
 }
