@@ -10,7 +10,7 @@ class EmployerController extends Controller
     public function index()
     {
         $recentEmployers = Employer::latest()->take(3)->get();
-        $allEmployers = Employer::simplePaginate(2);
+        $allEmployers = Employer::simplePaginate(10);
 
         return view('employers.index', compact('recentEmployers', 'allEmployers'));
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -56,7 +57,29 @@ Route::controller(EmployerController::class)->group(function () {
         ->can('update', 'employer');
 });
 
-////Route::get('/search', SearchController::class);
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user/{user}', 'show')
+        ->middleware('auth')
+        ->can('show', 'user');
+
+    Route::get('/jobs/create', 'create')
+        ->middleware('auth');
+
+    Route::post('/jobs', 'store')
+        ->middleware('auth');
+
+    Route::get('/jobs/{job}/edit', 'edit')
+        ->middleware(['auth', 'can:edit,job']);
+
+    Route::patch('/jobs/{job}', 'update')
+        ->middleware('auth')
+        ->can('update', 'job');
+
+    Route::delete('/jobs/{job}', 'destroy')
+        ->middleware('auth')
+        ->can('delete', 'job');
+});
+
 Route::get('/searchAll', [SearchController::class, 'searchAll']);
 Route::get('/searchEmployer', [SearchController::class, 'searchEmployer']);
 

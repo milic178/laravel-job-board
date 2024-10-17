@@ -13,5 +13,7 @@
         @endforeach
     </div>
 
-    {{ $jobs->links() }}
+    @if(!empty($jobs))
+        {{ $jobs->links() }}
+    @endif
 </x-layout>
