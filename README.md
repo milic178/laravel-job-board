@@ -40,14 +40,34 @@ MYSQL_PASSWORD=my_app_secret
 MYSQL_ROOT_PASSWORD=my_app_root
 REDIS_PASSWORD=redis_password
 ```
+## Preview
+
+Here are some screenshots of the app:
+
+### Homepage
+![Homepage](src//public/screenshots/homepage.png)
+![Homepage2](src//public/screenshots/homepage2.png)
+
+### View Job Details
+![Homepage2](src//public/screenshots/view_job.png)
+
+### View All Employees
+![Homepage2](src//public/screenshots/view_all_employees.png)
+
+### Search for Sales
+![Homepage2](src//public/screenshots/search_for_sales.png)
+
+### Mail validate email address
+![Homepage2](src//public/screenshots/mail_validate_email_address.png)
+
 
 ## Setup and Installation
 
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/username/JobBoardApp.git
-cd JobBoardApp 
+git clone https://github.com/milic178/laravel-job-board
+cd laravel-job-board 
 ```
 
 ### Step 2: Configure environment variables
@@ -72,7 +92,7 @@ Bringing up the Docker Compose network with ```app ``` instead of just using ```
     redis - :6379
     mailhog - :8025
 ```
-Three additional containers are included that handle Composer, NPM, and Artisan commands without having to have these platforms installed on your local computer.
+Three additional containers are included that handle **Composer, NPM, and Artisan** commands without having to have these platforms installed on your local computer.
 ``` 
     docker-compose run --rm composer update
     docker-compose run --rm npm run dev
