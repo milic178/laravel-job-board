@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -10,7 +11,8 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function show(User $user){
+    public function show(User $user)
+    {
 
     }
 
@@ -24,7 +26,8 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         /** @var User $user */
         $user = Auth::user();
@@ -46,7 +49,7 @@ class UserController extends Controller
             'employer_description' => 'nullable', 'max:1000',
         ]);
 
-        if($request->has('name') && $user->name !== $userAttributes['name']) {
+        if ($request->has('name') && $user->name !== $userAttributes['name']) {
             $user->name = $userAttributes['name'];
         }
 
@@ -65,7 +68,7 @@ class UserController extends Controller
 
         // Save the user model only if there are changes
         if ($user->isDirty()) {
-            
+
             $user->save();
             $successMessage = 'User profile updated successfully!';
         }
@@ -73,18 +76,18 @@ class UserController extends Controller
         /** @var Employer $employer */
         $employer = $user->employer;
 
-        if($request->has('employer_name') && $employer->name !== $employerAttributes['employer_name']) {
+        if ($request->has('employer_name') && $employer->name !== $employerAttributes['employer_name']) {
             $employer->name = $employerAttributes['employer_name'];
         }
 
 
-        if($request->has('employer_description') && $employer->description !== $employerAttributes['employer_description']) {
+        if ($request->has('employer_description') && $employer->description !== $employerAttributes['employer_description']) {
             $employer->description = $employerAttributes['employer_description'];
         }
 
 
-        if($request->hasFile('employer_logo') && $employer->logo !== $employerAttributes['employer_logo']) {
-            $employer->logo =$request->file('employer_logo')->store('logos');
+        if ($request->hasFile('employer_logo') && $employer->logo !== $employerAttributes['employer_logo']) {
+            $employer->logo = $request->file('employer_logo')->store('logos');
         }
 
 
@@ -97,12 +100,25 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //already done in RegistrationUserController
     }
 
+    public function destroy(Request $request)
+    {
 
-    public function destroy(User $user){
-        //todo
+        $user = Auth::user();
+        if ($request->user()->cannot('delete', $user)) {
+            abort(403, 'You are not allowed to edit this user');
+        }
+
+        $user->delete();
+        // Log out the user
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('job.index');
     }
 }
