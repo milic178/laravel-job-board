@@ -12,6 +12,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +45,27 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function employer(){
+        return $this->hasOne(Employer::class);
+    }
+
+    public function getEmployer(){
+        return $this->hasOne(Employer::class);
+    }
+
+    // In the User model
+    protected static function boot()
+    {
+        parent::boot();
+
+        // When a user is deleted, delete their related employer and jobs
+        static::deleting(function ($user) {
+            if ($user->employer) {
+                $user->employer->jobs()->delete(); // Delete related jobs
+                $user->employer->delete(); // Delete related employer
+            }
+        });
     }
 }
