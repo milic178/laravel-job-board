@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Jobs;
 use App\Models\Tag;
@@ -141,4 +142,13 @@ class JobController extends Controller
         $job->delete();
         return redirect()->route('job.index');
     }
+
+    public function indexEmployerJobs(Employer $employer)
+    {
+        $searchString = $employer->name;
+
+        $jobs = $employer->jobs()->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('results', compact('searchString', 'jobs'));
+    }
+
 }

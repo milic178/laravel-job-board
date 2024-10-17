@@ -39,6 +39,9 @@ Route::controller(JobController::class)->group(function () {
     Route::delete('/jobs/{job}', 'destroy')
         ->middleware('auth')
         ->can('delete', 'job');
+
+    Route::get('/employers/{employer}/jobs', 'indexEmployerJobs')
+        ->name('employers.jobs.index');
 });
 
 Route::controller(EmployerController::class)->group(function () {
@@ -61,36 +64,18 @@ Route::controller(EmployerController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/user/edit', 'edit')
         ->middleware('auth')
-        //todo add can
-        //->can('update', 'user')
+        // 'can' is processed in controller
         ->name('user.edit');
 
     Route::patch('/user/{user}', 'update')
         ->middleware('auth')
-      //  ->can('update', 'user')
-       ->name('user.update');
+        // 'can' is processed in controller
+        ->name('user.update');
 
     Route::delete('/user/{user}', 'destroy')
-        ->middleware('auth');
-        //->can('delete', 'user');
-
-/*    Route::get('/jobs/create', 'create')
-        ->middleware('auth');
-
-    Route::post('/jobs', 'store')
-        ->middleware('auth');
-
-    Route::get('/jobs/{job}/edit', 'edit')
-        ->middleware(['auth', 'can:edit,job']);
-
-    Route::patch('/jobs/{job}', 'update')
         ->middleware('auth')
-        ->can('update', 'job');
-
-    Route::delete('/jobs/{job}', 'destroy')
-        ->middleware('auth')
-        ->can('delete', 'job');
-*/
+        // 'can' is processed in controller
+        ->name('user.update');
 });
 
 Route::get('/searchAll', [SearchController::class, 'searchAll']);
