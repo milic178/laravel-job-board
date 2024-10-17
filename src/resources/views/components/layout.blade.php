@@ -57,7 +57,7 @@
                     </button>
 
                     <div id="menu-items" class="absolute right-0 mt-2 py-2 w-48 bg-white text-black rounded-lg shadow-xl hidden">
-                        <a href="/account" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Account</a>
+                        <a href="/user/edit" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Account</a>
                         <hr class="border-gray-300">
                         <a href="/" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Jobs</a>
                         <a href="/employer" class="block px-4 py-2 text-sm text-black hover:bg-gray-200 hover:text-black shadow-lg">Employers</a>

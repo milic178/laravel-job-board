@@ -2,6 +2,7 @@
     <div class="space-y-10">
         <section class="text-center">
             <h1 class="font-bold text-4xl">Search For Employers</h1>
+            <!-- todo prevent form submission if search query is less than 3 chars -->
             <x-forms.form action="/searchEmployer" class="mt-6">
                 <x-forms.input :label="false" name="q" placeholder="Wiegand Inc..." type="text"/>
             </x-forms.form>

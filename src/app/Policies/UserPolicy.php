@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Job;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -18,10 +19,11 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, User $model): bool
+    public function view(User $authUser, User $user): bool
     {
-        //
+        return $authUser->id === $user->id;
     }
+
 
     /**
      * Determine whether the user can create models.
@@ -31,20 +33,25 @@ class UserPolicy
         //
     }
 
+    public function edit(User $authUser, User $user)
+    {
+        return $authUser->id === $user->id;
+    }
+
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, User $model): bool
+    public function update(User $authUser, User $user)
     {
-        //
+        return $authUser->id === $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, User $model): bool
+    public function delete(User $authUser, User $user): bool
     {
-        //
+        return $authUser->id === $user->id;
     }
 
     /**

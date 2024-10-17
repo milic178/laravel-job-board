@@ -58,11 +58,22 @@ Route::controller(EmployerController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user/{user}', 'show')
+    Route::get('/user/edit', 'edit')
         ->middleware('auth')
-        ->can('show', 'user');
+        //todo add can
+        //->can('update', 'user')
+        ->name('user.edit');
 
-    Route::get('/jobs/create', 'create')
+    Route::patch('/user/{user}', 'update')
+        ->middleware('auth')
+      //  ->can('update', 'user')
+       ->name('user.update');
+
+    Route::delete('/user/{user}', 'destroy')
+        ->middleware('auth');
+        //->can('delete', 'user');
+
+/*    Route::get('/jobs/create', 'create')
         ->middleware('auth');
 
     Route::post('/jobs', 'store')
@@ -78,6 +89,7 @@ Route::controller(UserController::class)->group(function () {
     Route::delete('/jobs/{job}', 'destroy')
         ->middleware('auth')
         ->can('delete', 'job');
+*/
 });
 
 Route::get('/searchAll', [SearchController::class, 'searchAll']);

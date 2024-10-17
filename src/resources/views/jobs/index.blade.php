@@ -3,6 +3,7 @@
         <!-- Search job form -->
         <section class="text-center">
             <h1 class="font-bold text-4xl">Lets Find Your Next Job</h1>
+            <!-- todo prevent form submission if search query is less than 3 chars -->
             <x-forms.form action="/searchAll" class="mt-6">
                 <x-forms.input :label="false" name="q" placeholder="Web Developer..." type="text"/>
             </x-forms.form>

@@ -13,3 +13,4 @@
 @endphp
 
 <img src="{{$logo}}" alt="" width="{{$width}}" class="rounded-xl">
+
