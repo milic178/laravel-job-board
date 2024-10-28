@@ -51,12 +51,12 @@ class SearchController extends Controller
         $employers = [];
 
         if(strlen($searchString) < 2) {
-            return view('employers.results', compact('employers'));
+            return view('employers.results', compact('employers', 'searchString'));
         }
 
         $employers = Employer::where('name', 'LIKE', '%' . $searchString . '%')
             ->simplePaginate(10);
 
-        return view('employers.results', compact('employers'));
+        return view('employers.results', compact('employers', 'searchString'));
     }
 }
