@@ -35,13 +35,4 @@ class EmailController extends Controller
 
         return view('emailConfirmed');
     }
-
-    //todo remove test function
-    public function testEmail(Request $request)
-    {
-        $user = User::first();
-        $confirmEmailUrl='bdada';
-
-        return view('emails.welcome',compact('user', 'confirmEmailUrl'));
-    }
 }

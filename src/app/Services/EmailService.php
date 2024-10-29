@@ -14,8 +14,6 @@ class EmailService
             'confirmEmail', now()->addHours(2), ['eid' => $user->eid]
         );
 
-        //todo remove dev log
-        //error_log("\n confirmEmailUrli : ".$confirmEmailUrl."\n");
         Mail::to($user->email)->queue(new WelcomeMail($user, $confirmEmailUrl));
     }
 }

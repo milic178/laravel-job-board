@@ -78,8 +78,12 @@ Route::controller(UserController::class)->group(function () {
         ->name('user.update');
 });
 
-Route::get('/searchAll', [SearchController::class, 'searchAll']);
-Route::get('/searchEmployer', [SearchController::class, 'searchEmployer']);
+Route::controller(SearchController::class)->group(function () {
+    Route::get('/searchAll', 'searchAll');
+    Route::get('/searchEmployer', 'searchEmployer');
+   // Route::get('/autocompleteJobs', 'autocompleteJobs');
+    Route::get('/autocompleteEmployer', 'autocompleteEmployer');
+});
 
 //automatically pass name attribute
 Route::get('/tags/{tag:name}', TagController::class); // path by name tags/frontend
@@ -88,4 +92,4 @@ Route::get('/confirmEmail', [EmailController::class, 'confirmEmail'])->name('con
 
 
 //todo remove testEmail Route
-Route::get('/testEmail',[EmailController::class, 'testEmail']);
+//Route::get('/testEmail',[EmailController::class, 'testEmail']);

@@ -8,6 +8,7 @@ use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Jobs;
 use App\Models\Tag;
+use App\Services\JobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -75,10 +76,8 @@ class JobController extends Controller
             Arr::except($attributes, ['tags']));
 
         if($attributes['tags'] ?? false) {
-           foreach (explode(',', $attributes['tags']) as $tag) {
-               //todo consolidate that all tags are stored equally example frontend, front-end
-            $job->tag($tag);
-           }
+            $jobService = new JobService;
+            $jobService->updateTagsByName($job, $attributes['tags']);
         }
 
         return redirect()->route('job.index');
@@ -121,14 +120,9 @@ class JobController extends Controller
 
         $job->update(Arr::except($attributes, ['tags']));
 
-
-        if($attributes['tags'] ?? false) {
-            foreach (explode(',', $attributes['tags']) as $tag) {
-                $tag = ucfirst(str_replace(' ', '', $tag));
-
-                //todo consolidate that all tags are stored equally example frontend, front-end
-                $job->tag(str($tag));
-            }
+        if (isset($attributes['tags'])) {
+            $jobService = new JobService();
+            $jobService->updateTagsByName($job, $attributes['tags']);
         }
 
         return redirect('/jobs/' . $job->id);

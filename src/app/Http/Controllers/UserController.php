@@ -68,7 +68,6 @@ class UserController extends Controller
 
         // Save the user model only if there are changes
         if ($user->isDirty()) {
-
             $user->save();
             $successMessage = 'User profile updated successfully!';
         }

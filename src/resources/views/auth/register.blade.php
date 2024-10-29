@@ -4,6 +4,7 @@
         <x-forms.input label="Name" name="name" />
         <x-forms.input label="Email" name="email" type="email" />
         <x-forms.input label="Password" name="password" type="password" />
+        <small class="text-gray-300">NOTE: Password must be at least 8 characters long</small>
         <x-forms.input label="Password Confirmation" name="password_confirmation" type="password" />
 
         <x-forms.divider />

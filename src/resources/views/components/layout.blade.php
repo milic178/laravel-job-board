@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Job board</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,8 +28,8 @@
 
         <!-- Middle links (Jobs, Employers) -->
         <div class="space-x-6 font-bold hidden md:flex">
-            <a href="/" class="{{ Request::is('/') ? 'text-blue-500' : 'hover:text-gray-400' }}">Jobs</a>
-            <a href="/employer" class="{{ Request::is('employer') ? 'text-blue-500' : 'hover:text-gray-400' }}">Employers</a>
+            <a href="/" class="{{ Request::is('/') ? 'text-blue-500' : 'hover:text-gray-400' }}">Show Jobs</a>
+            <a href="/employer" class="{{ Request::is('employer') ? 'text-blue-500' : 'hover:text-gray-400' }}">Show Employers</a>
         </div>
 
         <!-- For Employers button with Login/Register options for guests -->
