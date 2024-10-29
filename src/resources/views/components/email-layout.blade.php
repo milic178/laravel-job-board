@@ -3,101 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="supported-color-schemes" content="dark">
     <title>{{ $slot->title ?? 'Email' }}</title>
     <style>
+        /* Place all your styles here */
         body {
-            font-family: 'Hanken Grotesk', Arial, sans-serif;
-            margin: 0;
+            background-color: #121212; /* Dark background for the email */
+            color: #e0e0e0; /* Light text color */
+            font-family: Arial, sans-serif;
             padding: 20px;
-            background-color: #000000;
-            color: #ffffff;
         }
-
-        .container {
+        .email-container {
             max-width: 600px;
-            margin: auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1e1e1e; /* Slightly lighter background for email container */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
-
         .header {
-            text-align: center;
-            margin-bottom: 50px;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ffffff; /* White header text */
         }
-
-        .header h1 {
-            color: #000000;
-            margin: 0;
-            font-size: 28px;
-        }
-
-        .header p {
-            color: #6b7280; /* Light gray text for the slogan */
-            font-size: 16px;
-            margin-top: 5px;
-        }
-
-        h2 {
-            color: #000000;
-            margin: 0 0 20px;
-        }
-
-        p {
+        .content {
             font-size: 16px;
             line-height: 1.5;
-            margin: 0 0 15px;
-            color: #000000;
         }
-
-        a {
-            color: #1d4ed8;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
         .footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #d1d5db; /* Light border for separation */
+            font-size: 12px;
+            color: #b0b0b0; /* Lighter footer text */
+            margin-top: 20px;
             text-align: center;
-            color: #6b7280; /* Light gray text */
         }
-
-        .footer p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 20px;
-            }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue action button */
+            color: #fff; /* White text for button */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px; /* Spacing above button */
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>JobBoardApp</h1>
-        <p>Find your dream job with us!</p>
-    </div>
-
-    {{ $slot }}
-
-    <div class="footer">
-        <p>&copy; {{ date('Y') }} JobBoardApp. All rights reserved.</p>
-        <p>Connecting talent with opportunity.</p>
-    </div>
-</div>
+        <div class="email-container">
+            <div class="header" style="display: flex; align-items: center;">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo JobBoardApp" style="width: 40px; height: 40px; margin-right: 10px;">
+                {{ $header }}
+            </div>
+            <div class="content">
+                {{ $slot }}
+            </div>
+            <div class="footer">
+                {{ $subcopy ?? '' }}
+                <p>&copy; {{ date('Y') }} JobBoardApp. All rights reserved.</p>
+                <p>Connecting talent with opportunity.</p>
+            </div>
+        </div>
 </body>
 </html>

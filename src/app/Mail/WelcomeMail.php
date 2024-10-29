@@ -25,11 +25,16 @@ class WelcomeMail extends Mailable
     public function build()
     {
         return $this->subject('Welcome to JobBoardApp')
-            ->view('emails.welcome')
-            ->with([
-                'user' => $this->user,
-                'confirmEmailUrl' => $this->confirmEmailUrl,
-            ]);
+        ->view('emails.welcome')
+        ->with([
+            'title' => 'Welcome to JobBoardApp',
+            'greeting' => 'Hello!',
+            'messageContent' => 'You are receiving this email because we received a password reset request for your account.',
+            'userName' => $this->user->name,
+            'actionText' => 'Confirm Email',
+            'actionUrl' => $this->confirmEmailUrl,
+            'closingText' => 'Thank you, jobBoardApp',
+        ]);
     }
 
     /**
@@ -47,13 +52,7 @@ class WelcomeMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'emails.welcome',
-            with: [
-                'user' => $this->user,
-                'confirmEmailUrl' => $this->confirmEmailUrl,
-                ]
-        );
+        return new Content();
     }
 
     /**

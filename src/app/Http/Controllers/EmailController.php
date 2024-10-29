@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EmailConfirmationException;
+use App\Mail\ResetPasswordMail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -34,5 +35,19 @@ class EmailController extends Controller
         $user->save();
 
         return view('emailConfirmed');
+    }
+
+    /** used to test email views by accessing /testEmail,
+     * check web.php and uncomment the path
+     */
+    public function testEmailView(Request $request)
+    {
+        $lastUser = \App\Models\User::latest()->first();
+
+        $mailable = new ResetPasswordMail($lastUser, 'https://www.perplexity.ai/search/aravel-how-do-i-get-all-employ-0TYlDKraQsmxlz.Og6fAOw');
+
+        $mailable = new WelcomeMail($lastUser, 'urlurl');
+
+        return $mailable->render();
     }
 }

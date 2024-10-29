@@ -30,7 +30,7 @@ class SessionController extends Controller
     {
         // Validate request attributes
         $attributes = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required', 'string', 'email', 'max:255',
             'password' => 'required',
         ]);
 
