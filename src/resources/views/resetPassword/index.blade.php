@@ -12,6 +12,11 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="bg-red-700 text-white p-4 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
         <x-forms.form method="POST" action="/password/email" class="space-y-4">
             @csrf
             <x-forms.input label="Email" name="email" type="email" />

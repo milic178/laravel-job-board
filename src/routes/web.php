@@ -87,7 +87,7 @@ Route::controller(SearchController::class)->group(function () {
 });
 
 Route::controller(ResetPasswordController::class)->group(function () {
-    Route::get('password/reset', 'showLinkRequestForm')->name('password.request');
+    Route::get('password/reset', 'showLinkRequestForm')->name('password.reset.request');
     Route::post('password/email', 'sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
     Route::post('password/reset', 'reset')->name('password.update');
