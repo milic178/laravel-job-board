@@ -13,6 +13,11 @@
         <x-forms.input label="Employer Name" name="employer" />
         <x-forms.textarea label="Employer Description" name="description"/>
         <x-forms.input label="Employer Logo" name="logo" type="file" />
-        <x-forms.button>Create Account</x-forms.button>
+
+        <div class="flex flex-col items-center space-y-4">
+            <x-forms.recaptcha position="center" theme="dark" />
+            <x-forms.button>Create Account</x-forms.button>
+        </div>
+
     </x-forms.form>
 </x-layout>

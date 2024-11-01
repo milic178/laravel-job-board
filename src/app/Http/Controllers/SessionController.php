@@ -32,7 +32,15 @@ class SessionController extends Controller
         $attributes = $request->validate([
             'email' => 'required', 'string', 'email', 'max:255',
             'password' => 'required',
-        ]);
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            //todo create Form Request and define validation and error messages
+            [
+                'g-recaptcha-response.required' => 'Please complete the reCAPTCHA to proceed.',
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
+            ]
+        );
+        unset($attributes['g-recaptcha-response']);
 
         $user = User::where('email', $attributes['email'])->first();
 

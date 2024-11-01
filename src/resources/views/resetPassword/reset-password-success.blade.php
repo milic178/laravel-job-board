@@ -6,3 +6,11 @@
         </span>
     </div>
 </x-layout>
+
+
+<script>
+    // Redirect after 5 seconds
+    setTimeout(() => {
+        window.location.href = '/login';
+    }, 5000);
+</script>

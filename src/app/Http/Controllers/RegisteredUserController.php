@@ -27,8 +27,15 @@ class RegisteredUserController extends Controller
             //look in users table on column email
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            //todo create Form Request and define validation and error messages
+            [
+                'g-recaptcha-response.required' => 'Please complete the reCAPTCHA to proceed.',
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
+            ]
+        );
+        unset($userAttributes['g-recaptcha-response']);
 
         $employerAttributes = $request->validate([
             'employer' => ['required', 'string', 'max:255'],

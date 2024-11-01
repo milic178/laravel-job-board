@@ -20,9 +20,14 @@
         <x-forms.form method="POST" action="/password/email" class="space-y-4">
             @csrf
             <x-forms.input label="Email" name="email" type="email" />
-            <div class="flex justify-end">
+
+            <x-forms.recaptcha position="center" theme="dark" />
+
+            <div class="flex justify-center">
                 <x-forms.button>Email Password Reset Link</x-forms.button>
             </div>
         </x-forms.form>
+
+
     </div>
 </x-layout>

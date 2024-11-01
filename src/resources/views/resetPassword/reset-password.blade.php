@@ -19,10 +19,12 @@
             <x-forms.input label="Password Confirmation" name="password_confirmation" type="password" />
 
             <x-forms.input type="hidden" label="" name="token" value="{{$token}}"/>
-
-            <div class="flex justify-end mt-4">
+            
+            <div class="flex flex-col items-center space-y-4">
+                <x-forms.recaptcha position="center" theme="dark" />
                 <x-forms.button>Reset password</x-forms.button>
             </div>
+
         </x-forms.form>
     </div>
 </x-layout>

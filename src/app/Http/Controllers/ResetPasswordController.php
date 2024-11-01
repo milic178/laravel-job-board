@@ -19,6 +19,12 @@ class ResetPasswordController extends Controller
         // Validate request attributes
         $attributes = $request->validate([
             'email' => 'required', 'string', 'email', 'max:255',
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            //todo create Form Request and define validation and error messages
+            [
+            'g-recaptcha-response.required' => 'Please complete the reCAPTCHA to proceed.',
+            'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
         ]);
 
         $user = User::where('email', $attributes['email'])->first();
@@ -74,7 +80,15 @@ class ResetPasswordController extends Controller
         $userAttributes = $request->validate([
             'token' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            //todo create Form Request and define validation and error messages
+            [
+                'g-recaptcha-response.required' => 'Please complete the reCAPTCHA to proceed.',
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
+            ]
+        );
+        unset($userAttributes['g-recaptcha-response']);
 
         $token = $userAttributes['token'];
         $passwordResetToken = PasswordResetTokens::where('token', $token)->first();
@@ -87,7 +101,6 @@ class ResetPasswordController extends Controller
         $user = User::where('email', $passwordResetToken->email)->first();
         if(!$user){
             error_log('No user found');
-
             return redirect()->route('password.reset.request')
                 ->with('error', 'Invalid token, please request a new password reset link.');
         }
@@ -97,8 +110,8 @@ class ResetPasswordController extends Controller
             if (!empty($userAttributes['password'])) {
                 $user->password = bcrypt($userAttributes['password']);
                 $user->save();
-                //todo find workaround to load another time, cannot use ->delete as table has no ids, or make migration
-                PasswordResetTokens::where('token', $token)->delete();
+                //NOTE: primary key is not ID, so we redefined primary key in model
+                $passwordResetToken->delete();
             }
         }
         catch(\Exception $e){
