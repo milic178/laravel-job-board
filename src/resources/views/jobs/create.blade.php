@@ -19,7 +19,7 @@
 
         <x-forms.divider/>
 
-        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="IT, Finance, Aviation"/>
+        <x-forms.input label="Tags (comma separated) maximum 3 tags allowed" name="tags" placeholder="IT, Finance, Aviation"/>
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>

@@ -53,10 +53,13 @@ class RegisteredUserController extends Controller
             'logo' => $logoPath ?? null
         ]);
 
-        Auth::login($user);
+        //Auth::login($user);
 
         $emailService = new EmailService();
         $emailService->queueWelcomeMail($user);
+
+        // Add a flash message to the session
+        session()->flash('status', 'To enhance your security, please verify your email by clicking the link in the email we just sent you. Once verified, you can log in!');
 
         return redirect()->route('job.index');
     }

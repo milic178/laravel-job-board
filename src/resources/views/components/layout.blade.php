@@ -37,7 +37,7 @@
             <div class="relative">
                 <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold"
                         id="employers-button">
-                    For Employers
+                    Post a Job
                 </button>
                 <!-- Dropdown Menu -->
                 <div id="employers-dropdown" class="absolute right-0 mt-2 py-2 w-48 bg-white text-black rounded-lg shadow-lg hidden">

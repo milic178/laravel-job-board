@@ -25,7 +25,7 @@ class JobController extends Controller
             //optimize query
             ->with(['employer', 'tags'])
             ->orderBy('created_at', 'desc')
-            ->take(6)
+            ->take(4)
             ->get();
 
 
@@ -66,8 +66,14 @@ class JobController extends Controller
             'schedule' => 'required', Rule::in(['Part Time', 'Full Time']),
             'url' => 'required', 'active_url',
             'description' => 'nullable', 'max:1000',
-            'tags' => 'nullable',
+            //maximum 3 comma separated tags
+            'tags' => 'nullable|string|max:50|regex:/^([^,]+(,[^,]+){0,2})?$/',
+        ], [
+            'tags.regex' => 'Please provide a maximum of 3 tags, separated by commas.',
+            'tags.max' => 'The tags field must not exceed 50 characters.',
+            'tags.string' => 'The tags field must be a valid string.',
         ]);
+
 
         $attributes['featured'] = $request->has('featured') ? true : false;
         $attributes['eid'] = uuid_create();
@@ -113,7 +119,12 @@ class JobController extends Controller
             'schedule' => 'required', Rule::in(['Part Time', 'Full Time']),
             'url' => 'required', 'active_url',
             'description' => 'nullable', 'max:1000',
-            'tags' => 'nullable',
+            //maximum 3 comma separated tags
+            'tags' => 'nullable|string|max:50|regex:/^([^,]+(,[^,]+){0,2})?$/',
+        ], [
+            'tags.regex' => 'Please provide a maximum of 3 tags, separated by commas.',
+            'tags.max' => 'The tags field must not exceed 50 characters.',
+            'tags.string' => 'The tags field must be a valid string.',
         ]);
 
         $attributes['featured'] = $request->has('featured') ? true : false;
