@@ -18,6 +18,7 @@
         <x-forms.input label="Password" name="password" type="password" />
         <small class="text-gray-300">Leave blank to keep the current password</small>
         <x-forms.input label="Password Confirmation" name="password_confirmation" type="password" />
+        <small class="text-gray-300">Leave blank to keep the current password</small>
 
         <x-forms.divider/>
 

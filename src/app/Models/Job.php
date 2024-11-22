@@ -47,4 +47,14 @@ class Job extends Model
 
         return implode(', ', $tagNames);
     }
+
+    public function untag($tags)
+    {
+        if (!is_array($tags)) {
+            $tags = [$tags];
+        }
+
+        $tagIds = Tag::whereIn('name', $tags)->pluck('id');
+        $this->tags()->detach($tagIds);
+    }
 }

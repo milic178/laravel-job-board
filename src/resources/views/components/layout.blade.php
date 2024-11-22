@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Job board</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,15 +28,22 @@
 
         <!-- Middle links (Jobs, Employers) -->
         <div class="space-x-6 font-bold hidden md:flex">
-            <a href="/" class="hover:text-gray-400">Jobs</a>
-            <a href="/employer" class="hover:text-gray-400">Employers</a>
+            <a href="/" class="{{ Request::is('/') ? 'text-blue-500' : 'hover:text-gray-400' }}">Show Jobs</a>
+            <a href="/employer" class="{{ Request::is('employer') ? 'text-blue-500' : 'hover:text-gray-400' }}">Show Employers</a>
         </div>
 
-        <!-- When user is logged out -->
+        <!-- For Employers button with Login/Register options for guests -->
         @guest
-            <div class="space-x-6 font-bold flex items-center">
-                <a href="/register" class="hover:text-gray-400">Sign Up</a>
-                <a href="/login" class="hover:text-gray-400">Login</a>
+            <div class="relative">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold"
+                        id="employers-button">
+                    Post a Job
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="employers-dropdown" class="absolute right-0 mt-2 py-2 w-48 bg-white text-black rounded-lg shadow-lg hidden">
+                    <a href="/login" class="block px-4 py-2 text-sm hover:bg-gray-200">Login</a>
+                    <a href="/register" class="block px-4 py-2 text-sm hover:bg-gray-200">Register</a>
+                </div>
             </div>
         @endguest
 

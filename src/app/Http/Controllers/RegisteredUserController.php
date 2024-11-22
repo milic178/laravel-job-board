@@ -27,12 +27,19 @@ class RegisteredUserController extends Controller
             //look in users table on column email
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+            //todo create Form Request and define validation and error messages
+            [
+                'g-recaptcha-response.required' => 'Please complete the reCAPTCHA to proceed.',
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
+            ]
+        );
+        unset($userAttributes['g-recaptcha-response']);
 
         $employerAttributes = $request->validate([
             'employer' => ['required', 'string', 'max:255'],
-            'logo' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+            'logo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
         ]);
 
         $userAttributes['eid'] = uuid_create();
@@ -46,10 +53,13 @@ class RegisteredUserController extends Controller
             'logo' => $logoPath ?? null
         ]);
 
-        Auth::login($user);
+        //Auth::login($user);
 
         $emailService = new EmailService();
         $emailService->queueWelcomeMail($user);
+
+        // Add a flash message to the session
+        session()->flash('status', 'To enhance your security, please verify your email by clicking the link in the email we just sent you. Once verified, you can log in!');
 
         return redirect()->route('job.index');
     }

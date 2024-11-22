@@ -2,6 +2,7 @@
     <x-page-heading>New Job</x-page-heading>
 
     <x-forms.form method="POST" action="/jobs">
+        @csrf
         <x-forms.input label="Title" name="title" placeholder="CEO"/>
         <x-forms.input label="Salary" name="salary" placeholder="$90,000 USD"/>
         <x-forms.input label="Location" name="location" placeholder="Winter Park, Florida"/>
@@ -18,7 +19,7 @@
 
         <x-forms.divider/>
 
-        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="IT, Finance, Aviation"/>
+        <x-forms.input label="Tags (comma separated) maximum 3 tags allowed" name="tags" placeholder="IT, Finance, Aviation"/>
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>

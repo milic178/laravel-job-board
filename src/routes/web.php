@@ -4,6 +4,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
@@ -78,8 +79,19 @@ Route::controller(UserController::class)->group(function () {
         ->name('user.update');
 });
 
-Route::get('/searchAll', [SearchController::class, 'searchAll']);
-Route::get('/searchEmployer', [SearchController::class, 'searchEmployer']);
+Route::controller(SearchController::class)->group(function () {
+    Route::get('/searchAll', 'searchAll');
+    Route::get('/searchEmployer', 'searchEmployer');
+   // Route::get('/autocompleteJobs', 'autocompleteJobs');
+    Route::get('/autocompleteEmployer', 'autocompleteEmployer');
+});
+
+Route::controller(ResetPasswordController::class)->group(function () {
+    Route::get('password/reset', 'showLinkRequestForm')->name('password.reset.request');
+    Route::post('password/email', 'sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
+    Route::post('password/reset', 'reset')->name('password.update');
+});
 
 //automatically pass name attribute
 Route::get('/tags/{tag:name}', TagController::class); // path by name tags/frontend
@@ -88,4 +100,5 @@ Route::get('/confirmEmail', [EmailController::class, 'confirmEmail'])->name('con
 
 
 //todo remove testEmail Route
-Route::get('/testEmail',[EmailController::class, 'testEmail']);
+//Route::get('/testEmail',[EmailController::class, 'testEmailView']);
+
